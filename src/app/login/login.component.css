@@ -1,0 +1,50 @@
+#containerPage{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#formulariConteianer{
+  background-color: orange;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width: 350px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+#tituloForm{
+  font-size: 30px;
+  font-weight: 700;
+}
+
+#firstlabel{
+  margin-top: 20px;
+}
+
+#formulari{
+  display: flex;
+  flex-direction: column;
+}
+
+#buttonForm{
+  height: 30px;
+  width: 100px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+
+.inputs{
+  height: 30px;
+  width: 200px;
+  border-radius: 5px;
+}
+
+.labels{
+
+}
