@@ -7,10 +7,6 @@ import {NgFor, NgIf} from "@angular/common";
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  imports: [
-    NgIf,
-    NgFor
-  ]
 })
 export class LoginComponent {
 

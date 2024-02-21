@@ -6,12 +6,6 @@ import {CommonModule, NgFor, NgForOf, NgIf} from "@angular/common";
   selector: 'app-plana-principal',
   templateUrl: './plana-principal.component.html',
   styleUrls: ['./plana-principal.component.css'],
-  imports: [
-    // NgIf,
-    // NgFor,
-    // NgForOf,
-    CommonModule
-  ]
 })
 export class PlanaPrincipalComponent {
   socket: any;
@@ -36,7 +30,7 @@ export class PlanaPrincipalComponent {
       })
     });
 
-    this.socket.on("CodiVideo", (args) => this.codi = args);
+    this.socket.on("CodiVideo", (args: any) => this.codi = args);
 
     this.getVideoListServer();
     this.videoList.forEach(element => console.log(element.title));
