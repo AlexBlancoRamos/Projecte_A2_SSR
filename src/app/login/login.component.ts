@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient} from "@angular/common/http";
+import {LoginToHomeService} from "../login-to-home.service";
 
 @Component({
   selector: 'app-login',
@@ -24,14 +25,14 @@ export class LoginComponent {
     console.log({datos})
 
 
-    this.http.post<any>('http://169.254.180.117:3000/api/auth', datos).subscribe(
+    this.http.post<any>('http://192.168.56.2:3000/api/auth', datos).subscribe(
       response => {
         if (response) {
           console.log(response)
           this.s.addUserLogat(response.user.email)
           alert("Inicio de sesión exitoso");
           localStorage.setItem('jwt', response.token);
-          // this.router.navigate(['/inici']);
+          this.router.navigate(['/inici']);
         } else {
           alert("Usuario y/o contraseña incorrectos");
         }
@@ -41,6 +42,6 @@ export class LoginComponent {
       }
     );
 
-    this.http.get<any>('http://169.254.180.117:3000/api/videos').subscribe();
+    this.http.get<any>('http://192.168.56.2:3000/api/videos').subscribe();
   }
 }
