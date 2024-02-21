@@ -1,6 +1,5 @@
 import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { io } from 'socket.io-client';
-import {LoginToHomeService} from "../login-to-home.service";
 
 @Component({
   selector: 'app-plana-principal',
