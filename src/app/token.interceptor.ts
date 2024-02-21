@@ -10,7 +10,10 @@ export class TokenInterceptor implements HttpInterceptor {
     let modifiedReq;
     if (userToken !== null && userToken !== undefined) {
       modifiedReq = req.clone({
-        headers: req.headers.set('token', `${userToken}`),
+        setHeaders: {
+          'token': userToken
+        },
+        // headers: req.headers.set('token', `${userToken}`),
       });
       return next.handle(modifiedReq);
 

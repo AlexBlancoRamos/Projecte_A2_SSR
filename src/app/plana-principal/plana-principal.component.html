@@ -12,6 +12,7 @@
 
     <p> User: {{user}} </p>
 
+
   </div>
 
 </header>
@@ -65,7 +66,7 @@
 
                     <img (click)="cerrarMenasaje('verifyDiv')" id="imgCruz" src="assets/Grey_close_x.svg.png"
                          alt="close icon">
-                    <progress id="progress2" [value]="progreso" max="100" style="background-color: green ;"></progress>
+<!--                    <progress id="progress2" [value]="progreso" max="100" style="background-color: green ;"></progress>-->
                   </div>
                   <video id="{{i}}" controls style="width: 700px; max-width: 100%; margin: 0 auto; display: block">
                     <source src="http://192.168.16.200:3000/{{video.videoUrl}}">
@@ -81,7 +82,7 @@
 
                   <img (click)="cerrarMenasaje('verifyErrorDiv')" id="imgCruzError" src="assets/Grey_close_x.svg.png"
                        alt="close icon">
-                  <progress id="progress" [value]="progreso" max="100" style="background-color: red ;"></progress>
+<!--                  <progress id="progress" [value]="progreso" max="100" style="background-color: red ;"></progress>-->
                 </div>
               </ng-container>
             </ng-container>

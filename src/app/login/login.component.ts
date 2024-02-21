@@ -7,10 +7,6 @@ import {LoginToHomeService} from "../login-to-home.service";
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-  imports: [
-    NgIf,
-    NgFor
-  ]
 })
 export class LoginComponent {
 
@@ -45,7 +41,5 @@ export class LoginComponent {
         console.error('Error al iniciar sesión:', error);
       }
     );
-
-    this.http.get<any>('http://169.254.180.117:3000/api/videos').subscribe();
   }
 }
