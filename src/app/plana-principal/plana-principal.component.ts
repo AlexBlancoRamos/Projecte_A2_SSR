@@ -15,7 +15,7 @@ export class PlanaPrincipalComponent {
   codi: string = "";
   showDiv = false;
   progreso: number = 100;
-  tiempoRestante: number = 10000;
+  tiempoRestante: number = 5000;
 
   constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone) {
     this.socket = io("http://169.254.180.117:8888", { transports: ['websocket'], key: 'angular-client' });
@@ -52,11 +52,20 @@ export class PlanaPrincipalComponent {
     this.socket.on("VerifiedCorrectly", (arg: boolean) => {
       video.verified = arg;
 
+      function progress(timeleft: number, timetotal: number, $element: any) {
+        let progressBarWidth = timeleft * $element.width() / timetotal;
+        $element.find('div').animate({ width: progressBarWidth }, 500).html(Math.floor(timeleft/60) + ":"+ timeleft%60);
+        if(timeleft > 0) {
+          setTimeout(function() {
+            progress(timeleft - 1, timetotal, $element);
+          }, 1000);
+        }
+
+        document.getElementById('verifyDiv')!.style.display = 'none';
+      }
+
       if(video.verified) {
-        setTimeout(() => {
-          document.getElementById('verifyDiv')!.style.display = 'none';
-          this.resetearProgreso();
-        }, 5000);
+        progress(5, 5, document.getElementById("progressBar"));
       }
       else {
         setTimeout(() => {
@@ -73,7 +82,7 @@ export class PlanaPrincipalComponent {
 
   resetearProgreso() {
     this.progreso = 100;
-    this.tiempoRestante = 10000;
+    this.tiempoRestante = 5000;
   }
 
   mostrarPopup() {
