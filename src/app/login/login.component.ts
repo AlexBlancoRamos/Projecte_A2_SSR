@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient} from "@angular/common/http";
-import {NgFor, NgIf} from "@angular/common";
+import {LoginToHomeService} from "../login-to-home.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  imports: [
+    NgIf,
+    NgFor
+  ]
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private s: LoginToHomeService) {
   }
 
   usuari: string='';
@@ -29,9 +33,10 @@ export class LoginComponent {
       response => {
         if (response) {
           console.log(response)
+          this.s.addUserLogat(response.user.email)
           alert("Inicio de sesión exitoso");
           localStorage.setItem('jwt', response.token);
-          // this.router.navigate(['/inici']);
+          this.router.navigate(['/inici']);
         } else {
           alert("Usuario y/o contraseña incorrectos");
         }

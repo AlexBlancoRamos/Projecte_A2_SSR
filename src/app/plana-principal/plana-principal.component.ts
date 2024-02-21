@@ -6,6 +6,12 @@ import {CommonModule, NgFor, NgForOf, NgIf} from "@angular/common";
   selector: 'app-plana-principal',
   templateUrl: './plana-principal.component.html',
   styleUrls: ['./plana-principal.component.css'],
+  imports: [
+    // NgIf,
+    // NgFor,
+    // NgForOf,
+    CommonModule
+  ]
 })
 export class PlanaPrincipalComponent {
   socket: any;
@@ -15,10 +21,12 @@ export class PlanaPrincipalComponent {
   codi: string = "";
   showDiv = false;
   progreso: number = 100;
-  tiempoRestante: number = 5000;
+  tiempoRestante: number = 10000;
+  user: string = "hola"
 
-  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone) {
-    this.socket = io("http://169.254.180.117:8888", { transports: ['websocket'], key: 'angular-client' });
+  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone, private s: LoginToHomeService) {
+    this.user = s.getUserLogat()
+    this.socket = io("http://192.168.56.2:8888", { transports: ['websocket'], key: 'angular-client' });
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -82,7 +90,7 @@ export class PlanaPrincipalComponent {
 
   resetearProgreso() {
     this.progreso = 100;
-    this.tiempoRestante = 5000;
+    this.tiempoRestante = 10000;
   }
 
   mostrarPopup() {
