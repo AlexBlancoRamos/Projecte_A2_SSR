@@ -18,7 +18,9 @@
 
 <button id="test" (click)="openVideoList()">Mostrar películas</button>
 
-<p *ngIf="showDiv">Selecione la película que desea ver:</p>
+@if(showDiv) {
+  <p>Selecione la película que desea ver:</p>
+}
 
 <div style="display: flex; flex-direction: column; min-height: 80vh;">
   <div style="flex: 1; display: flex; flex-direction: column; align-items: center">

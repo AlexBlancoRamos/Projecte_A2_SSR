@@ -1,10 +1,17 @@
 import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { io } from 'socket.io-client';
+import {CommonModule, NgFor, NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-plana-principal',
   templateUrl: './plana-principal.component.html',
-  styleUrls: ['./plana-principal.component.css']
+  styleUrls: ['./plana-principal.component.css'],
+  imports: [
+    // NgIf,
+    // NgFor,
+    // NgForOf,
+    CommonModule
+  ]
 })
 export class PlanaPrincipalComponent {
   socket: any;
