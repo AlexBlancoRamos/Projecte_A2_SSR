@@ -33,11 +33,10 @@ export class LoginComponent {
           alert("Inicio de sesión exitoso");
           localStorage.setItem('jwt', response.token);
           this.router.navigate(['/inici']);
-        } else {
-          alert("Usuario y/o contraseña incorrectos");
         }
       },
       error => {
+        alert("Usuario y/o contraseña incorrectos");
         console.error('Error al iniciar sesión:', error);
       }
     );

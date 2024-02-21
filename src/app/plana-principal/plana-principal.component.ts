@@ -1,6 +1,7 @@
 import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { io } from 'socket.io-client';
 import {LoginToHomeService} from "../login-to-home.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plana-principal',
@@ -18,7 +19,7 @@ export class PlanaPrincipalComponent {
   tiempoRestante: number = 10000;
   user: string = "hola"
 
-  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone, private s: LoginToHomeService) {
+  constructor(private router: Router, private cdRef: ChangeDetectorRef, private ngZone: NgZone, private s: LoginToHomeService) {
     this.user = s.getUserLogat()
     this.socket = io("http://192.168.56.2:8888", { transports: ['websocket'], key: 'angular-client' });
 
@@ -86,6 +87,11 @@ export class PlanaPrincipalComponent {
   ocultarPopup() {
     document.getElementById('popup')!.style.display = 'none';
     document.getElementById('overlay')!.style.display = 'none';
+  }
+
+  logout(){
+    localStorage.removeItem("jwt")
+    this.router.navigate(['/login']);
   }
 }
 
