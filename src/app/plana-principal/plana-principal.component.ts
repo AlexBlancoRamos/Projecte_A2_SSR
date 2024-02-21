@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { io } from 'socket.io-client';
+import {LoginToHomeService} from "../login-to-home.service";
 
 @Component({
   selector: 'app-plana-principal',
@@ -15,8 +16,10 @@ export class PlanaPrincipalComponent {
   showDiv = false;
   progreso: number = 100;
   tiempoRestante: number = 10000;
+  user: string = ""
 
-  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone) {
+  constructor(private cdRef: ChangeDetectorRef, private ngZone: NgZone, private s: LoginToHomeService) {
+    this.user = s.getUserLogat()
     this.socket = io("http://169.254.180.117:8888", { transports: ['websocket'], key: 'angular-client' });
 
     this.socket.on("hello", (arg: any) => {
@@ -29,7 +32,7 @@ export class PlanaPrincipalComponent {
       })
     });
 
-    this.socket.on("CodiVideo", (args) => this.codi = args);
+    this.socket.on("CodiVideo", (args: any) => this.codi = args);
 
     this.getVideoListServer();
     this.videoList.forEach(element => console.log(element.title));
