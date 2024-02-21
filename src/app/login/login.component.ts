@@ -6,7 +6,7 @@ import {LoginToHomeService} from "../login-to-home.service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
 
@@ -25,7 +25,7 @@ export class LoginComponent {
     console.log({datos})
 
 
-    this.http.post<any>('http://192.168.56.2:3000/api/auth', datos).subscribe(
+    this.http.post<any>('http://169.254.180.117:3000/api/auth', datos).subscribe(
       response => {
         if (response) {
           console.log(response)
@@ -40,7 +40,5 @@ export class LoginComponent {
         console.error('Error al iniciar sesión:', error);
       }
     );
-
-    this.http.get<any>('http://192.168.56.2:3000/api/videos').subscribe();
   }
 }
