@@ -26,9 +26,21 @@ nav{ width: 100%;
   align-items: center;
 }
 
-#nom_usuario{
-  background-color: white;
-  margin-left: 88%;
+#buscadorBoton{
+  border-radius: 6px;
+  background-color: orange;
+  height: 30px;
+  width: 80px;
+}
+
+#buscadorInput{
+  border-radius: 6px;
+  height: 25px;
+  width: 300px;
+}
+
+#user{
+  color: orange ;
 }
 
 #logout{
@@ -113,7 +125,7 @@ li{
 }
 
 #titulos:hover {
-  background-color: #F7BE81;
+  background-color: orange;
 }
 
 .overlay {
@@ -128,7 +140,7 @@ li{
 }
 
 .search-input{
-  border: 4px solid #F7BE81;
+  border: 4px solid orange;
   border-radius:10px 0 0 10px ;
   border-right: 4px;
   margin-left: 150%;
@@ -141,12 +153,12 @@ li{
   text-align: center;
   outline: none;
   cursor: pointer;
-  border: 4px solid #F7BE81;
+  border: 4px solid orange;
   border-radius: 0 10px 10px 0 ;
   border-left: none;
   background: none;
   font-size: 20px;
-  border-left: 4px solid #F7BE81;
+  border-left: 4px solid orange;
 }
 
 #logout{
@@ -168,7 +180,7 @@ li{
 }
 
 #test:hover{
-  background-color: #F7BE81;
+  background-color: orange;
 }
 
 
