@@ -10,11 +10,7 @@
       </button>
     </div>
 
-    <div id="containerLog">
-      <button id="LogoutBoton" (click)="logout()" class="buscadorBoton" >Logout</button>
-      <p id="user"> {{user}} </p>
-    </div>
-
+    <p id="user"> {{ user }} </p>
 
 
   </div>
@@ -23,77 +19,76 @@
 
 <button id="test" (click)="openVideoList()">Mostrar películas</button>
 
-@if(showDiv) {
-  <p>Selecione la película que desea ver:</p>
+@if (showDiv) {
+<p>Selecione la película que desea ver:</p>
 }
 
 <div style="display: flex; flex-direction: column; min-height: 80vh;">
   <div style="flex: 1; display: flex; flex-direction: column; align-items: center">
-    <div style="display: flex" *ngIf="showDiv">
-      <table>
-        <tr>
-          <ng-container *ngFor="let video of videoList; let i of videoList">
-            <p id="titulos" (click)="toggleAndRequestVideo(video)">
-              {{video.title.split('.')[0]
-              .split('720p')[0]
-              .split('1080p')[0]
-              .replaceAll("_", " ")
-              .replaceAll("–", " ")
-              .replaceAll("-", " ")
-              .replaceAll("_", " ")
-              }}
-            </p>
-            <ng-container *ngIf="video.opened">
-              <ng-container *ngIf="video.verified === undefined">
-                <img id="gif" src="assets/loading.gif" alt="loading gif">
-                <br>
-                <button (click)="mostrarPopup()">Mostrar Codigo</button>
+    @if (showDiv) {
+    <table>
+      <tr>
+        @for (video of videoList; track video.index; let i = $index) {
+    <p id="titulos" (click)="toggleAndRequestVideo(video)">
+      {{
+      video.title.split('.')[0]
+        .split('720p')[0]
+        .split('1080p')[0]
+        .replaceAll("_", " ")
+        .replaceAll("–", " ")
+        .replaceAll("-", " ")
+        .replaceAll("_", " ")
+      }}
+    </p>
+    @if (video.opened) {
+    @if(video.verified === undefined) {
+    <img id="gif" src="assets/loading.gif" alt="loading gif">
+    <br>
+    <button (click)="mostrarPopup()">Mostrar Codigo</button>
 
-                <div id="popup" class="popup">
-                  <h4>Este es el codigo:</h4>
-                  <b>{{codi}}</b>
-                  <br>
-                  <button (click)="ocultarPopup()">Cerrar</button><!-- ocultarPopup() -->
-                </div>
-
-                <div id="overlay" class="overlay"></div>
-
-              </ng-container>
-              <ng-container *ngIf="video.verified === true">
-                <div style="width: 800px;">
-                  <div id="verifyDiv">
-                    <img id="imgcheck"
-                         src="assets/pngtree-green-check-mark-icon-on-transparent-background-png-image_8679061.png"
-                         alt="check icon"/>
-
-                    <h1 id="textoOK">Todo a funcionado correctamente</h1>
-
-                    <img (click)="cerrarMenasaje('verifyDiv')" id="imgCruz" src="assets/Grey_close_x.svg.png"
-                         alt="close icon">
-<!--                    <progress id="progress2" [value]="progreso" max="100" style="background-color: green ;"></progress>-->
-                  </div>
-                  <video id="{{i}}" controls style="width: 700px; max-width: 100%; margin: 0 auto; display: block">
-                    <source src="http://192.168.1.116:3000/{{video.videoUrl}}">
-                  </video>
-                </div>
-              </ng-container>
-
-              <ng-container *ngIf="video.verified === false">
-                <div id="verifyErrorDiv">
-                  <img id="imgerror" src="assets/error.svg.png" alt="error icon"/>
-
-                  <h1 id="textoError">Codigo incorrecto</h1>
-
-                  <img (click)="cerrarMenasaje('verifyErrorDiv')" id="imgCruzError" src="assets/Grey_close_x.svg.png"
-                       alt="close icon">
-<!--                  <progress id="progress" [value]="progreso" max="100" style="background-color: red ;"></progress>-->
-                </div>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-        </tr>
-      </table>
+    <div id="popup" class="popup">
+      <h4>Este es el codigo:</h4>
+      <b>{{ codi }}</b>
+      <br>
+      <button (click)="ocultarPopup()">Cerrar</button><!-- ocultarPopup() -->
     </div>
+
+    <div id="overlay" class="overlay"></div>
+    }
+    @if (video.verified === true) {
+    <div style="width: 800px;">
+      <div id="verifyDiv">
+        <img id="imgcheck"
+             src="assets/pngtree-green-check-mark-icon-on-transparent-background-png-image_8679061.png"
+             alt="check icon"/>
+
+        <h1 id="textoOK">Todo a funcionado correctamente</h1>
+
+        <img (click)="cerrarMenasaje('verifyDiv')" id="imgCruz" src="assets/Grey_close_x.svg.png"
+             alt="close icon">
+      </div>
+      <video id="{{i}}" controls style="width: 700px; max-width: 100%; margin: 0 auto; display: block">
+        <source src="http://192.168.1.116:3000/{{video.videoUrl}}">
+      </video>
+    </div>
+    }
+
+    @if (video.verified === false) {
+    <div id="verifyErrorDiv">
+      <img id="imgerror" src="assets/error.svg.png" alt="error icon"/>
+
+      <h1 id="textoError">Codigo incorrecto</h1>
+
+      <img (click)="cerrarMenasaje('verifyErrorDiv')" id="imgCruzError" src="assets/Grey_close_x.svg.png"
+           alt="close icon">
+    </div>
+    }
+    }
+    }
+    </tr>
+  </table>
+    }
+
   </div>
 
   <footer>
