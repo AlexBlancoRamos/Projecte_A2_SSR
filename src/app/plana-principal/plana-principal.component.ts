@@ -27,7 +27,7 @@ export class PlanaPrincipalComponent implements OnInit {
   }
 
   initializeSocket() {
-    this.socket = io("http://192.168.56.2:8888", { transports: ['websocket'], key: 'angular-client' });
+    this.socket = io("http://192.168.1.116:8888", { transports: ['websocket'], key: 'angular-client' });
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
@@ -41,7 +41,7 @@ export class PlanaPrincipalComponent implements OnInit {
   }
 
   fetchVideoList() {
-    this.http.get<any>('http://192.168.56.2:3000/api/videos').subscribe(
+    this.http.get<any>('http://192.168.1.116:3000/api/videos').subscribe(
       response => {
         this.videoList = response.videos;
       }

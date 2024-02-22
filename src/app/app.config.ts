@@ -4,7 +4,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppComponent } from './app.component';
 import { PlanaPrincipalComponent } from './plana-principal/plana-principal.component';
 import {RouterOutlet} from "@angular/router";
-import {HttpClientModule, HTTP_INTERCEPTORS, provideHttpClient, withFetch, HttpClient} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS, provideHttpClient, withFetch} from "@angular/common/http";
 import {routing} from "./app.routes";
 import {FormsModule} from "@angular/forms";
 import { LoginComponent } from './login/login.component';
@@ -34,6 +34,7 @@ import {TokenInterceptor} from "./token.interceptor";
       multi: true
     },
     provideClientHydration(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
