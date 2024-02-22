@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { PlanaPrincipalComponent } from './plana-principal/plana-principal.component';
@@ -32,7 +32,8 @@ import {TokenInterceptor} from "./token.interceptor";
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    provideClientHydration()
   ],
   bootstrap: [AppComponent]
 })
