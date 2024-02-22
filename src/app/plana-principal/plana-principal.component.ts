@@ -1,8 +1,8 @@
-import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Component, ChangeDetectorRef, NgZone, OnInit } from '@angular/core';
 import { io } from 'socket.io-client';
-import {LoginToHomeService} from "../login-to-home.service";
+import { LoginToHomeService } from "../login-to-home.service";
 import { Router } from '@angular/router';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-plana-principal',
@@ -10,52 +10,42 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./plana-principal.component.css'],
 })
 
-export class PlanaPrincipalComponent {
+export class PlanaPrincipalComponent implements OnInit {
   socket: any;
   videoList: any[] = [];
   codi: string = "";
-  showDiv= false;
-  user: string = "hola"
+  showDiv = false;
+  user: string = "hola";
 
   constructor(private router: Router, private cdRef: ChangeDetectorRef, private ngZone: NgZone, private s: LoginToHomeService, private http: HttpClient) {
-    this.user = s.getUserLogat()
-    this.socket = io("http://192.168.56.2:8888", { transports: ['websocket'], key: 'angular-client' });
-    this.videoList = [];
-
     this.user = s.getUserLogat();
-    this.socket = io("http://192.168.1.116:8888", { transports: ['websocket'], key: 'angular-client' });
+  }
+
+  ngOnInit() {
+    this.initializeSocket();
+    this.fetchVideoList();
+  }
+
+  initializeSocket() {
+    this.socket = io("http://192.168.56.2:8888", { transports: ['websocket'], key: 'angular-client' });
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
     });
 
-    this.http.get<any>('http://192.168.1.116:3000/api/videos').subscribe(
-      response => {
-
-        response.videos.forEach((element: any) => {
-          this.videoList.push(element)
-
-          console.log("ELEMENT   |   ", element);
-        })
-      }
-    );
-
-    console.log("array de videos  |  ", this.videoList);
-
     this.socket.on("VideoList", (videoObj: any[]) => {
-      videoObj.forEach(element => {
-        this.videoList.push(element);
-      })
+      this.videoList = videoObj;
     });
 
     this.socket.on("CodiVideo", (args: any) => this.codi = args);
-
-    this.getVideoListServer();
-    this.videoList.forEach(element => console.log(element.title));
   }
 
-  getVideoListServer() {
-    this.socket.emit("RequestVideo", "");
+  fetchVideoList() {
+    this.http.get<any>('http://192.168.56.2:3000/api/videos').subscribe(
+      response => {
+        this.videoList = response.videos;
+      }
+    );
   }
 
   openVideoList() {
@@ -95,10 +85,10 @@ export class PlanaPrincipalComponent {
     document.getElementById(nombre_div)!.style.display = 'none';
   }
 
-/*  resetearProgreso() {
-    this.progreso = 100;
-    this.tiempoRestante = 10000;
-  }*/
+  /*  resetearProgreso() {
+      this.progreso = 100;
+      this.tiempoRestante = 10000;
+    }*/
 
   mostrarPopup() {
     document.getElementById('popup')!.style.display = 'block';
