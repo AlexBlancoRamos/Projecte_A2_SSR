@@ -25,7 +25,7 @@ export class LoginComponent {
     console.log({datos})
 
 
-    this.http.post<any>('http://192.168.1.116:3000/api/auth', datos).subscribe(
+    this.http.post<any>('http://192.168.56.2:3000/api/auth', datos).subscribe(
       response => {
         if (response) {
           console.log(response)

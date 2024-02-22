@@ -1,20 +1,18 @@
 <header>
   <div id="containerHeader">
     <img id="logo" src="../../assets/fotos/logoooo.png">
-
     <div>
       <input id="buscadorInput" type="text" placeholder="Search..">
-
       <button id="buscadorBoton" class="buscador">
         Buscar
       </button>
     </div>
 
-    <p id="user"> {{ user }} </p>
-
-
+    <div id="containerLog">
+      <button id="LogoutBoton" (click)="logout()" class="buscadorBoton" >Logout</button>
+      <p id="user"> {{user}} </p>
+    </div>
   </div>
-
 </header>
 
 <button id="test" (click)="openVideoList()">Mostrar películas</button>
@@ -68,7 +66,7 @@
              alt="close icon">
       </div>
       <video id="{{i}}" controls style="width: 700px; max-width: 100%; margin: 0 auto; display: block">
-        <source src="http://192.168.1.116:3000/{{video.videoUrl}}">
+        <source src="http://192.168.56.2:3000/{{video.videoUrl}}">
       </video>
     </div>
     }
