@@ -20,13 +20,13 @@ export class PlanaPrincipalComponent {
     this.videoList = [];
 
     this.user = s.getUserLogat();
-    this.socket = io("http://169.254.180.117:8888", { transports: ['websocket'], key: 'angular-client' });
+    this.socket = io("http://192.168.1.116:8888", { transports: ['websocket'], key: 'angular-client' });
 
     this.socket.on("hello", (arg: any) => {
       console.log(arg);
     });
 
-    this.http.get<any>('http://169.254.180.117:3000/api/videos').subscribe(
+    this.http.get<any>('http://192.168.1.116:3000/api/videos').subscribe(
       response => {
 
         response.videos.forEach((element: any) => {
