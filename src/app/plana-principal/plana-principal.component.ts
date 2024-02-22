@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, NgZone } from '@angular/core';
 import { io } from 'socket.io-client';
 import {LoginToHomeService} from "../login-to-home.service";
 import { Router } from '@angular/router';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-plana-principal',
@@ -16,7 +17,7 @@ export class PlanaPrincipalComponent {
   showDiv= false;
   user: string = "hola"
 
-  constructor(private router: Router, private cdRef: ChangeDetectorRef, private ngZone: NgZone, private s: LoginToHomeService) {
+  constructor(private router: Router, private cdRef: ChangeDetectorRef, private ngZone: NgZone, private s: LoginToHomeService, private http: HttpClient) {
     this.user = s.getUserLogat()
     this.socket = io("http://192.168.56.2:8888", { transports: ['websocket'], key: 'angular-client' });
     this.videoList = [];
@@ -41,11 +42,11 @@ export class PlanaPrincipalComponent {
 
     console.log("array de videos  |  ", this.videoList);
 
-    // this.socket.on("VideoList", (videoObj: any[]) => {
-    //   videoObj.forEach(element => {
-    //     this.videoList.push(element);
-    //   })
-    // });
+    this.socket.on("VideoList", (videoObj: any[]) => {
+      videoObj.forEach(element => {
+        this.videoList.push(element);
+      })
+    });
 
     this.socket.on("CodiVideo", (args: any) => this.codi = args);
 
@@ -94,10 +95,10 @@ export class PlanaPrincipalComponent {
     document.getElementById(nombre_div)!.style.display = 'none';
   }
 
-  resetearProgreso() {
+/*  resetearProgreso() {
     this.progreso = 100;
     this.tiempoRestante = 10000;
-  }
+  }*/
 
   mostrarPopup() {
     document.getElementById('popup')!.style.display = 'block';
